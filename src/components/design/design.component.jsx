@@ -67,12 +67,9 @@ const Design = ({ toggleMode, currentMode: { value }, updateSettings }) => {
 					{value ? <Sun size="14" /> : <Moon size="14" />}
 				</button>
 				<button className="download" onClick={exportPic}>
-					<Download size="14" /> Download Image
+					<Download size="14" /> Download Book Cover
 				</button>
 
-				<div className="stargazers">
-					<GitHubButton type="stargazers" namespace="pjijin" repo="Cover-Image-Generator" />
-				</div>
 			</div>
 			<div className="center" ref={capture}>
 				<div className="design-frame" style={containerStyle}>

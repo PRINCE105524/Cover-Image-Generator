@@ -1,6 +1,6 @@
 import domtoimage from 'dom-to-image';
 
-export const downloadImage = (node, width, height, type = 'png', file_name = 'blogcover') => {
+export const downloadImage = (node, width, height, type = 'png', file_name = 'book_cover') => {
 	const config = {
 		style: {
 			'transform-origin': 'center',

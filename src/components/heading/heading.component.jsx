@@ -7,7 +7,7 @@ const Heading = ({ headingStyle }) => (
 			<Move size="18" />
 		</p>
 		<h3 style={headingStyle} contentEditable suppressContentEditableWarning>
-			My awesome blog post
+			Harry Potter and the Half-Blood Prince
 		</h3>
 	</div>
 );

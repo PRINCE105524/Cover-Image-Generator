@@ -40,14 +40,14 @@ const FontSize = ({ handleChange, defaultSettings, changeSettings }) => {
 									/>
 								</div>
 							</LabelOption>
-							<LabelOption name="Heading Font Size">
+							<LabelOption name="Font Size of Book Name">
 								<NumberInput
 									handleChange={handleChange}
 									name="headingFontSize"
 									defaultValue={headingFontSize}
 								/>
 							</LabelOption>
-							<LabelOption name="Summary Font Size">
+							<LabelOption name="Font Size of Author Name">
 								<NumberInput
 									handleChange={handleChange}
 									name="summaryFontSize"

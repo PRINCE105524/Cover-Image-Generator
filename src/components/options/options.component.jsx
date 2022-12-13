@@ -7,6 +7,8 @@ import FontOptions from '../font-options/font-options.component';
 import CanvasProperties from '../canvas-properties/canvas-properties.component';
 import ImageOptions from '../image-options/image-options.components';
 import BackgroundOptions from '../background-options/background-options.component';
+import BackgroundOptionsAI from '../background-options-ai/background-options-ai.component';
+
 import './options.styles.scss';
 
 const Options = ({ updateSettings, massUpdateSettings }) => {
@@ -31,7 +33,7 @@ const Options = ({ updateSettings, massUpdateSettings }) => {
 	return (
 		<div className="options">
 			<h2 className="logo">
-				<Image size="24" /> <span>BlogCover</span>
+				<Image size="24" /> <span>Book Cover Generator</span>
 			</h2>
 
 			<h4>Options</h4>
@@ -42,11 +44,18 @@ const Options = ({ updateSettings, massUpdateSettings }) => {
 				massUpdateSettings={massUpdateSettings}
 				changeSettings={updateSettings}
 			/>
-			<BackgroundOptions
+
+			<BackgroundOptionsAI
+			defaultSettings={defaultSettings}
+			handleChange={handleChange}
+			changeSettings={updateSettings}
+			/>
+
+{/* 			<BackgroundOptions
 				defaultSettings={defaultSettings}
 				handleChange={handleChange}
 				changeSettings={updateSettings}
-			/>
+			/> */}
 
 			<FontOptions
 				defaultSettings={defaultSettings}

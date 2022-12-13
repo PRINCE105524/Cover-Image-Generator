@@ -7,7 +7,7 @@ const SubHeading = ({ summaryStyle }) => (
 			<Move size="18" />
 		</p>
 		<p style={summaryStyle} contentEditable suppressContentEditableWarning>
-			Small Description
+			J. K. ROWLING
 		</p>
 	</div>
 );

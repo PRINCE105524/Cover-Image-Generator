@@ -7,12 +7,44 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import LabelOption from '../label-option/label-option.component';
 import ColorPicker from '../color-picker/colorpicker.component';
-import { toDataURL } from './background.util';
+import { toDataURL } from './background.util.ai';
 import 'react-input-range/lib/css/index.css';
-import './background-options.styles.scss';
+import './background-options-ai.styles.scss';
 
-const BackgroundOptions = ({ handleChange, defaultSettings: { overlay, background }, changeSettings }) => {
-	const [imageUrl, setImageUrl] = useState('https://source.unsplash.com/random/1280x807?programming');
+import { Configuration, OpenAIApi } from "openai";
+
+
+const BackgroundOptionsAI = ({ handleChange, defaultSettings: { overlay, background }, changeSettings }) => {
+
+	const [prompt, setPrompt] = useState("");
+	const [result, setResult] = useState("");
+	const [loadings, setLoading] = useState(false);
+	const [placeholder, setPlaceholder] = useState(
+	  "Write your imagination to create a background with AI"
+	);
+
+	const configuration = new Configuration({
+	  apiKey: process.env.REACT_APP_API_KEY,
+	  //apiKey: "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",
+
+	});
+  
+	const openai = new OpenAIApi(configuration);
+	console.log(openai);
+
+	const generateImage = async () => {
+		setPlaceholder(`Search ${prompt}..`);
+		setLoading(true);
+		const res = await openai.createImage({
+		  prompt: prompt,
+		  n: 1,
+		  size: "512x512",
+		});
+		setLoading(false);
+		setResult(res.data.data[0].url);
+	  };
+
+	const [imageUrl, setImageUrl] = useState('https://source.unsplash.com/random/720x720?magazine');
 	const [overlays, setOverlay] = useState(overlay);
 
 	const [category, setCategory] = useState('programming');
@@ -43,25 +75,88 @@ const BackgroundOptions = ({ handleChange, defaultSettings: { overlay, backgroun
 	};
 
 	return (
+		
 		<Toggle initial={false}>
 			{({ on, toggle }) => (
 				<>
 					<div className="toggle" onClick={toggle} checked={on}>
 						<h5>
-							{on ? <Minus size="12" /> : <Plus size="12" />} <Image size="12" /> Background  
+							{on ? <Minus size="12" /> : <Plus size="12" />} <Image size="12" /> AI-Generated Background
 						</h5>
 					</div>
 					{on && (
+						
+						
 						<div className="options-toggle">
-							<LabelOption name="Background">
+
+{/* 							<LabelOption name="Background">
 								<ColorPicker
 									defaultValue={background}
 									changeSettings={changeSettings}
 									name="background"
 								/>
-							</LabelOption>
+							</LabelOption> */}
+
+
+
+							<div className="app-main">
+				{loadings ? (
+						<>
+						<h5>Please Wait.. Building Your Imagination...</h5>
+						<div className="lds-ripple">
+							<div></div>
+							<div></div>
+						</div>
+						</>
+				) : (
+					<>
+					<textarea
+						className="app-input"
+						placeholder={placeholder}
+						onChange={(e) => setPrompt(e.target.value)}
+						rows="10"
+						cols="40"
+					/>
+					<button className="default-btn" onClick={generateImage}>Generate Background Image</button>
+					{result.length > 0 ? (
+						 //<img className="result-image" src={result} alt="result" />
+						setImageUrl(result)
+						
+						//this.changeImageUrl()
+						
+						
+
+					) : (
+						<></>
+					)}
+					</>
+				)}
+				</div>
+
+
+{/* repeat block */}
 
 							<div>
+
+							<div>
+							<span></span>
+							<img src={imageUrl} alt="Programming" height="256px" width="256" />
+							</div>
+							
+
+								<div className="d-f j-sb">
+									<button className="default-btn" onClick={changeImageUrl}>
+										<span>Use This Image</span>
+									</button>
+								</div>
+
+							</div> 
+
+
+
+
+
+{/* 							<div>
 								<h5>Background Image URL</h5>
 								<input
 									type="url"
@@ -73,8 +168,10 @@ const BackgroundOptions = ({ handleChange, defaultSettings: { overlay, backgroun
 									}}
 									name="bgUrl"
 								/>
-							</div>
-							<div>
+							</div> */}
+
+
+							{/* <div>
 								<div className="d-f j-sb">
 									<button className="default-btn" onClick={refreshImage}>
 										<RefreshCcw size="12" />
@@ -101,7 +198,10 @@ const BackgroundOptions = ({ handleChange, defaultSettings: { overlay, backgroun
 									<CategoryButton name="Nature" slug="nature" />
 									<CategoryButton name="Laptop" slug="mac" />
 								</div>
-							</div>
+							</div> */}
+
+
+
 
 							<div>
 								<h5>Darken Background</h5>
@@ -126,10 +226,10 @@ const BackgroundOptions = ({ handleChange, defaultSettings: { overlay, backgroun
 	);
 };
 
-BackgroundOptions.propTypes = {
+BackgroundOptionsAI.propTypes = {
 	handleChange: PropTypes.func,
 	defaultSettings: PropTypes.object,
 	changeSettings: PropTypes.func,
 };
 
-export default BackgroundOptions;
+export default BackgroundOptionsAI;

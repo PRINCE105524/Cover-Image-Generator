@@ -62,11 +62,11 @@ const CanvasProperties = ({ handleChange, defaultSettings, changeSettings, massU
 
 
 
-							<LabelOption name="Blog">
+							<LabelOption name="Templete">
 								<select onChange={handleBlog} name="Blog">
-									<option value="dev">Dev.to</option>
-									<option value="hashnode">HashNode</option>
-									<option value="medium">Medium</option>
+									<option value="dev">1000_420</option>
+									<option value="hashnode">800_420</option>
+									<option value="medium">1000_500</option>
 								</select>
 							</LabelOption>
 
